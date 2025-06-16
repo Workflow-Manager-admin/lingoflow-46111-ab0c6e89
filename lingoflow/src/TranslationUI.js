@@ -273,25 +273,53 @@ function TranslationUI() {
         </div>
         <button
           type="submit"
-          className="btn btn-large"
+          className="translationui-translate-btn"
           style={{
             width: '100%',
-            backgroundColor: input && targetLang ? '#4A90E2' : '#C8DBF6',
+            backgroundColor: input && targetLang && !isTranslating ? '#4A90E2' : '#C8DBF6',
             color: '#fff',
-            borderRadius: 8,
-            fontSize: '1.1rem',
-            fontWeight: 600,
-            padding: '14px 0',
-            marginTop: 6,
-            marginBottom: 20,
-            transition: 'background 0.15s'
+            border: 'none',
+            borderRadius: '14px',
+            fontFamily: 'inherit',
+            fontSize: '1.35rem',
+            fontWeight: 700,
+            padding: '22px 0',
+            marginTop: 10,
+            marginBottom: 28,
+            boxShadow: input && targetLang && !isTranslating ? '0 4px 18px 0 #DCE7F5' : 'none',
+            letterSpacing: '0.01em',
+            cursor: (!input.trim() || !targetLang || isTranslating) ? 'not-allowed' : 'pointer',
+            outline: 'none',
+            transition: 'background 0.15s, box-shadow 0.15s'
           }}
           disabled={!input.trim() || !targetLang || isTranslating}
           aria-label="Translate"
+          aria-disabled={!input.trim() || !targetLang || isTranslating}
+          tabIndex={0}
+          onKeyDown={e => {
+            if (
+              (e.key === 'Enter' || e.key === ' ') &&
+              !(!input.trim() || !targetLang || isTranslating)
+            ) {
+              e.preventDefault();
+              handleTranslate(e);
+            }
+          }}
         >
           {isTranslating ? (
-            <span aria-live="polite"><span className="translationui-spinner" aria-label="Translating"></span> Translating…</span>
-          ) : 'Translate'}
+            <span aria-live="polite" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10}}>
+              <span className="translationui-spinner" aria-label="Translating"></span> Translating…
+            </span>
+          ) : (
+            <span style={{
+              letterSpacing: '.03em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10
+            }}>
+              <svg height="24" width="24" viewBox="0 0 28 28" aria-hidden="true" focusable="false" style={{marginRight: 6, verticalAlign:'middle', fill: 'currentColor'}}>
+                <path d="M5.3 18.7a1 1 0 01.2-1.4C7 15.8 8.5 14 10 11.5l1.1-2 .2.5c.3 1 .8 2 1.3 2.7.5.8 1.3 1.6 2.3 2.2a1 1 0 01.4 1.2c-.2.5-.6.7-1.1.6A8.8 8.8 0 0111.4 14c-1.5 2.2-3 4.2-5 6.3a1 1 0 01-1.4.1zm11-12l.9 2.2A1 1 0 0018 10h4.2a1 1 0 110 2h-3.7l-.8-2-2.6 6.1a1 1 0 00.6 1.3c.6.2 1.2-.1 1.3-.7L17 14h2.3c.6 0 1-.4 1-1a1 1 0 00-1-1H17l-.5-1.3 2.3-5.6z"/>
+              </svg>
+              Translate
+            </span>
+          )}
         </button>
       </form>
       <section
@@ -388,10 +416,56 @@ const styleSheet = `
   margin-bottom: 4px;
   display: block;
 }
+
+/* Branded translate button: modern, large, minimal, accessible */
+.translationui-translate-btn {
+  font-family: inherit;
+  font-size: 1.35rem;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 22px 0;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  letter-spacing: 0.01em;
+  min-height: 56px;
+  box-shadow: 0 4px 18px 0 #dce7f5;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.translationui-translate-btn:focus-visible, .translationui-translate-btn:focus {
+  outline: 3px solid #F5A623;
+  outline-offset: 2px;
+}
+
+.translationui-translate-btn:disabled, .translationui-translate-btn[aria-disabled="true"] {
+  background-color: #C8DBF6 !important;
+  color: #ffffffcc !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.translationui-translate-btn:active:not(:disabled) {
+  background-color: #397fbb;
+  box-shadow: 0 2px 8px 0 #dce7f5;
+}
+
+/* Responsive touch target */
+.translationui-translate-btn {
+  min-width: 100%;
+  min-height: 56px;
+}
+
 @media (max-width: 600px) {
   .translationui-lang-row {
     flex-direction: column !important;
     gap: 10px !important;
+  }
+  .translationui-translate-btn {
+    min-width: 100%;
+    font-size: 1.16rem;
+    padding: 18px 0;
+    min-height: 48px;
   }
 }
 `;
