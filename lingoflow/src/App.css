@@ -1,77 +1,373 @@
 :root {
-  --base-light: #4A90E2;
-  --base-dark: #00008b;
-  --accent: #F5A623;
-  --primary: #4A90E2;
-  --secondary: #50E3C2;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+  /* Brand palette */
+  --brand-primary: #4A90E2;
+  --brand-secondary: #50E3C2;
+  --brand-accent: #F5A623;
+  --brand-bg-light: #fcfdff;
+  --brand-bg-card: #fff;
+  --brand-bg-muted: #f6fbff;
+  --brand-bg-output: #fafdff;
+  --brand-bg-disabled: #E8FAF6;
+  --brand-border: #e8eeff;
+  --brand-border-muted: #e5eaf2;
+  --brand-text: #202A34;
+  --brand-text-secondary: #6d7586;
+  --brand-text-label: #294366;
+  --brand-text-placeholder: #b0b6be;
+  --brand-btn-disabled: #C8DBF6;
 
-/* Output area: modern, accessible, theme-aligned */
-.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
-  outline: 2.5px solid #4A90E2;
-  outline-offset: 2px;
-}
-.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
-  outline: 2.5px solid #F5A623;
-  outline-offset: 0px;
-}
-.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
-  background: #e8e8ef !important;
-  color: #b7bac2 !important;
-  cursor: not-allowed;
-  box-shadow: none !important;
-}
-.translationui-copy-btn:active:not(:disabled) {
-  background: #46c2af !important;
-}
-@media (max-width: 600px) {
-  .translationui-output-section {
-    font-size: 1.01rem !important;
-    padding: 14px 9px 13px 9px !important;
-  }
-  .translationui-copy-btn {
-    top: 14px !important;
-    right: 7px !important;
-    font-size: 13.6px !important;
-    padding: 7px 10px !important;
-  }
-}
+  --border-radius-lg: 16px;
+  --border-radius-md: 12px;
+  --border-radius-sm: 8px;
+  --focus-outline: 0 0 0 2.5px var(--brand-primary);
+  --focus-outline-accent: 0 0 0 2.5px var(--brand-accent);
 
+  --font-sans: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--base-dark);
-  color: var(--text-color);
+  font-family: var(--font-sans);
+  background: var(--brand-primary);
+  min-height: 100vh;
+  color: var(--brand-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Output area: modern, accessible, theme-aligned */
-.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
-  outline: 2.5px solid #4A90E2;
+/* App container basic layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--brand-bg-muted);
+}
+
+/* Navbar */
+.navbar {
+  background: var(--brand-primary);
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--brand-border-muted);
+  position: fixed;
+  top: 0; width: 100%;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-symbol {
+  color: var(--brand-primary);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hero {
+  padding-top: 120px;
+  padding-bottom: 64px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.subtitle {
+  color: var(--brand-primary);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+.description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--brand-text-placeholder);
+  max-width: 600px;
+  margin-bottom: 16px;
+}
+
+/* Universal roundedness fixes for modern/minimal */
+input, textarea, select, button, .translationui-output-section,
+.translationui-container, .translationui-autodetect-toggle,
+.translationui-translate-btn, .translationui-copy-btn,
+.translationui-select {
+  border-radius: var(--border-radius-md) !important;
+}
+
+/* --- TranslationUI COMPONENT STYLES --- */
+/* Card layout for TranslationUI */
+.translationui-container {
+  background: var(--brand-bg-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 2px 16px rgba(74,144,226,0.06);
+  padding: 2.5rem 1.25rem 2rem 1.25rem;
+  margin-top: 96px;
+  margin-bottom: 48px;
+  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.translationui-label {
+  font-weight: 500;
+  font-size: 14.2px;
+  color: var(--brand-text-label);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.translationui-input {
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  font-size: 1.08rem;
+  padding: 14px;
+  border: 1.5px solid var(--brand-border-muted);
+  border-radius: var(--border-radius-md);
+  background: var(--brand-bg-light);
+  color: var(--brand-text);
+  margin-bottom: 18px;
+  font-family: inherit;
+  outline: none;
+  box-shadow: 0 0 0 2px transparent;
+  transition: border-color 0.15s, box-shadow 0.12s;
+}
+.translationui-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: var(--focus-outline);
+}
+
+.translationui-charcount {
+  font-size: 12px;
+  color: var(--brand-text-placeholder);
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+/* Language row flex responsive */
+.translationui-lang-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.translationui-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--border-radius-md);
+  border: 1.5px solid var(--brand-border-muted);
+  background: var(--brand-bg-muted);
+  font-size: 1rem;
+  margin-top: 4px;
+  font-family: inherit;
+  color: var(--brand-text);
+  transition: border-color 0.15s;
+}
+.translationui-select:focus {
+  border-color: var(--brand-primary);
+  outline: var(--focus-outline);
+}
+.translationui-select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  color: var(--brand-text-placeholder);
+}
+
+.translationui-autodetect-toggle {
+  margin-left: 8px;
+  min-width: 44px; min-height: 36px;
+  padding: 5px 13px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+  font-size: 1rem;
+  background: var(--brand-accent);
+  color: #282008;
+  box-shadow: 0 1px 6px 0 #ffe5bc90;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.18s, color 0.12s;
+}
+.translationui-autodetect-toggle:focus {
+  outline: var(--focus-outline-accent);
+}
+.translationui-autodetect-toggle[aria-checked="false"] {
+  background: var(--brand-bg-muted);
+  color: var(--brand-text-label);
+  box-shadow: none;
+  outline: 2px solid var(--brand-accent);
+}
+
+.translationui-translate-btn {
+  width: 100%;
+  background: var(--brand-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-family: inherit;
+  font-size: 1.32rem;
+  font-weight: 700;
+  padding: 22px 0;
+  margin-top: 10px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 18px 0 #DCE7F5;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.15s, box-shadow 0.15s;
+  min-height: 56px;
+}
+.translationui-translate-btn:focus, 
+.translationui-translate-btn:focus-visible {
+  outline: 3px solid var(--brand-accent);
   outline-offset: 2px;
 }
+.translationui-translate-btn:disabled, .translationui-translate-btn[aria-disabled="true"] {
+  background: var(--brand-btn-disabled) !important;
+  color: #ffffffcc !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.translationui-translate-btn:active:not(:disabled) {
+  background: #397fbb;
+  box-shadow: 0 2px 8px 0 #dce7f5;
+}
+
+/* Output section (translated result) */
+.translationui-output-section {
+  min-height: 80px;
+  border-radius: var(--border-radius-md);
+  border: 1.6px solid var(--brand-border);
+  background: var(--brand-bg-output);
+  box-sizing: border-box;
+  padding: 22px 18px 14px 18px;
+  margin-bottom: 0;
+  margin-top: 4px;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 2px 6px #e3e8ef22;
+  outline: none;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  box-shadow: 0 0 0 2.5px var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.translationui-output-section:empty {
+  color: var(--brand-text-placeholder);
+}
+
+/* Output copy button */
+.translationui-copy-btn {
+  position: absolute;
+  top: 18px;
+  right: 19px;
+  background: var(--brand-secondary);
+  color: #18363a;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: 14.2px;
+  min-width: 44px;
+  min-height: 36px;
+  border: none;
+  display: inline-flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 14px;
+  cursor: pointer;
+  box-shadow: 0 1.5px 5px #70e3d640;
+  outline: none;
+  transition: background 0.13s;
+  z-index: 2;
+}
 .translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
-  outline: 2.5px solid #F5A623;
+  outline: 2.5px solid var(--brand-accent);
   outline-offset: 0px;
 }
 .translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
-  background: #e8e8ef !important;
-  color: #b7bac2 !important;
+  background: var(--brand-bg-disabled) !important;
+  color: #abbdbb !important;
   cursor: not-allowed;
   box-shadow: none !important;
 }
 .translationui-copy-btn:active:not(:disabled) {
   background: #46c2af !important;
 }
+
+/* Typographic appearance for output text */
+.translationui-output-section > div[role="region"] {
+  font-size: 1.09rem;
+  color: var(--brand-text);
+  min-height: 28px;
+  margin-top: 7px;
+  word-break: break-word;
+  outline: none;
+  line-height: 1.55;
+  padding-right: 60px;
+  white-space: pre-line;
+  background: transparent;
+}
+.translationui-output-section > div[role="region"]:focus {
+  outline: 2px solid var(--brand-primary);
+}
+
+/* Minimal spinner for feedback states */
+.translationui-spinner {
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  border: 2.5px solid var(--brand-secondary);
+  border-top: 2.5px solid var(--brand-accent);
+  animation: translationui-spin 0.7s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+@keyframes translationui-spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+/* Responsive rules */
 @media (max-width: 600px) {
+  .translationui-container {
+    padding: 1.15rem 3vw 1.35rem 3vw;
+  }
+  .translationui-lang-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .translationui-translate-btn {
+    font-size: 1.08rem;
+    padding: 16px 0;
+    min-height: 48px;
+  }
   .translationui-output-section {
-    font-size: 1.01rem !important;
     padding: 14px 9px 13px 9px !important;
+    font-size: 1.01rem !important;
   }
   .translationui-copy-btn {
     top: 14px !important;
@@ -81,11 +377,36 @@ body {
   }
 }
 
+/* Accessibility: focus visible universal fallback */
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 1.5px;
+}
 
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Ensure tap targets are large enough */
+button, select, textarea {
+  min-width: 44px;
+  min-height: 36px;
+}
+
+/* Utility helpers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+
+/* Hide scrollbars for clean look (optional) */
+.translationui-container ::-webkit-scrollbar,
+.translationui-input::-webkit-scrollbar {
+  width: 0.63em;
+  background: var(--brand-bg-light);
+}
+.translationui-container ::-webkit-scrollbar-thumb,
+.translationui-input::-webkit-scrollbar-thumb {
+  background: #e5eaf2;
+  border-radius: 2em;
 }
 
 /* Output area: modern, accessible, theme-aligned */
