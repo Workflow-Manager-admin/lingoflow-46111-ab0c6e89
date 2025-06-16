@@ -72,7 +72,15 @@ function TranslationUI() {
     }}>
       <form onSubmit={handleTranslate} aria-label="Translation Form">
         <div className="translationui-label-group">
-          <label htmlFor={inputId} className="translationui-label">Text to translate</label>
+          <label htmlFor={inputId} className="translationui-label">
+            Text to translate
+            <span 
+              style={{position: 'absolute', left: '-9999px', height: 0, width: 0, overflow: 'hidden'}}
+              id={`${inputId}-emoji-info`}
+            >
+              You can enter emojis and special characters here.
+            </span>
+          </label>
           <textarea
             id={inputId}
             className="translationui-input"
@@ -81,8 +89,10 @@ function TranslationUI() {
               if (e.target.value.length <= 2000) setInput(e.target.value);
             }}
             rows={5}
-            placeholder="Enter text to translate…"
-            aria-label="Input text area"
+            inputMode="text"
+            placeholder="Enter text to translate (emoji supported)…"
+            aria-label="Input text area for translation. Emoji supported."
+            aria-describedby={`${inputId}-emoji-info`}
             maxLength={2000}
             autoFocus
             required
@@ -90,17 +100,26 @@ function TranslationUI() {
               width: '100%',
               minHeight: 88,
               resize: 'vertical',
-              fontSize: '1.05rem',
+              fontSize: '1.08rem',
               padding: '14px',
               border: '1.5px solid #ecf1f5',
-              borderRadius: 8,
+              borderRadius: 10,
               background: '#fcfdff',
-              color: '#202A34',
+              color: '#171c22',
               marginBottom: 18,
-              fontFamily: 'inherit'
+              fontFamily: 'inherit',
+              outlineColor: '#4A90E2',
+              boxShadow: '0 0 0 2px transparent'
             }}
+            spellCheck={true}
+            autoComplete="off"
+            tabIndex={0}
+            enterKeyHint="enter"
+            aria-multiline="true"
           />
-          <div className="translationui-charcount" aria-live="polite" style={{fontSize: 12, color: '#b0b6be', textAlign: 'right', marginBottom: 10}}>{input.length}/2000</div>
+          <div className="translationui-charcount" aria-live="polite" style={{fontSize: 12, color: '#b0b6be', textAlign: 'right', marginBottom: 10}}>
+            {input.length}/2000
+          </div>
         </div>
         <div className="translationui-lang-row" style={{
           display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18
