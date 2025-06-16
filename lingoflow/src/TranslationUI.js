@@ -325,34 +325,57 @@ function TranslationUI() {
       <section
         aria-live="polite"
         aria-atomic="true"
+        className="translationui-output-section"
         style={{
-          minHeight: '70px', // ensure output area doesn't jump
-          borderRadius: 10,
-          border: '1.5px solid #f1f5fa',
+          minHeight: '80px',
+          borderRadius: 12,
+          border: '1.6px solid #e8eeff',
           background: '#fafdff',
           boxSizing: 'border-box',
-          padding: output ? '19px 18px 10px 18px' : '16px 18px',
+          padding: output ? '22px 18px 14px 18px' : '18px 18px',
           marginBottom: 0,
           marginTop: 4,
           position: 'relative',
           textAlign: 'left',
+          boxShadow: '0 2px 6px #e3e8ef22'
         }}
       >
-        <div className="translationui-label" style={{margin: 0, fontWeight: 500, fontSize: 15, marginBottom: 4, color: '#4A90E2'}}>
+        <div className="translationui-label"
+          style={{
+            margin: 0,
+            fontWeight: 600,
+            fontSize: 15.5,
+            marginBottom: 5,
+            color: 'var(--base-light, #4A90E2)',
+            letterSpacing: '.015em',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
           Output
+          <span style={{fontSize: 0, height: 0, overflow: 'hidden', position: 'absolute'}}>
+            Translated text will appear here.
+          </span>
         </div>
         <div
           id={outputId}
           tabIndex={0}
-          style={{
-            fontSize: '1.08rem',
-            color: output ? '#202A34' : '#b7bac2',
-            minHeight: 30,
-            marginTop: 5,
-            wordBreak: 'break-word'
-          }}
-          aria-label="Translation output"
+          role="region"
+          aria-label="Translated output text"
           aria-describedby={output ? undefined : 'empty-output-desc'}
+          style={{
+            fontSize: '1.09rem',
+            color: output ? '#202A34' : '#b7bac2',
+            minHeight: 28,
+            marginTop: 7,
+            wordBreak: 'break-word',
+            outline: 'none',
+            lineHeight: 1.55,
+            paddingRight: 60, // leaves room for the copy button
+            whiteSpace: 'pre-line',
+            background: 'transparent'
+          }}
+          onFocus={e => { e.target.style.outline = '2px solid #4A90E2'; }}
+          onBlur={e => { e.target.style.outline = 'none'; }}
         >
           {isTranslating
             ? <span style={{color: '#50E3C2'}}>Translating…</span>
@@ -364,32 +387,72 @@ function TranslationUI() {
         </div>
         <button
           type="button"
-          className="btn"
-          aria-label="Copy translated text"
+          className="translationui-copy-btn"
+          aria-label={output ? "Copy translated text" : "Copy disabled (no output)"}
+          title={output ? "Copy translated text" : "Copy disabled"}
+          tabIndex={0}
           onClick={handleCopy}
+          onKeyDown={e => {
+            if (output && (e.key === "Enter" || e.key === " ")) {
+              e.preventDefault();
+              handleCopy();
+            }
+          }}
           disabled={!output}
+          aria-disabled={!output}
           style={{
             position: 'absolute',
-            top: 10,
-            right: 16,
+            top: 18,
+            right: 19,
             background: output ? '#50E3C2' : '#E8FAF6',
-            color: '#1d4160',
+            color: output ? '#18363a' : '#abbdbb',
             borderRadius: 6,
-            fontWeight: 500,
-            fontSize: 14,
-            padding: '6px 14px',
+            fontWeight: 600,
+            fontSize: 14.2,
             minWidth: 44,
-            minHeight: 28,
+            minHeight: 36,
             border: 'none',
+            display: 'inline-flex',
+            gap: 8,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '7px 14px',
             cursor: output ? 'pointer' : 'not-allowed',
+            boxShadow: output ? '0 1.5px 5px #70e3d640' : 'none',
+            outline: 'none',
             transition: 'background 0.13s'
           }}
-          tabIndex={0}
+          onFocus={e => e.currentTarget.style.outline = "2px solid #4A90E2"}
+          onBlur={e => e.currentTarget.style.outline = "none"}
         >
           {copyStatus === 'copied'
-            ? <span role="status" aria-live="polite">Copied!</span>
-            : 'Copy'}
+            ? <span role="status" aria-live="polite" style={{fontWeight: 700}}>Copied!</span>
+            : <>
+                <svg
+                  width="18" height="18" viewBox="0 0 20 20"
+                  aria-hidden="true" focusable="false"
+                  style={{
+                    verticalAlign: 'middle',
+                    marginRight: 4,
+                    fill: 'currentColor',
+                    opacity: output ? 1 : 0.65
+                  }}
+                >
+                  <path d="M5 3c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h2v3H7v2h8c.55 0 1-.45 1-1V12c0-.55-.45-1-1-1h-1V4c0-.55-.45-1-1-1H5zm6 9H7V5h4v7z"/>
+                </svg>
+                Copy
+              </>
+          }
         </button>
+        <span style={{
+          fontSize: 0,
+          height: 0,
+          width: 0,
+          overflow: 'hidden',
+          position: 'absolute'
+        }} aria-live="polite">
+          {copyStatus === "copied" && output ? "Translation copied to clipboard." : ""}
+        </span>
       </section>
     </div>
   );

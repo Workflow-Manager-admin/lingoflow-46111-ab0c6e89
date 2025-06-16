@@ -1,10 +1,45 @@
 :root {
-  --base-light: #00ffff;
+  --base-light: #4A90E2;
   --base-dark: #00008b;
+  --accent: #F5A623;
+  --primary: #4A90E2;
+  --secondary: #50E3C2;
   --text-color: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 body {
   margin: 0;
@@ -15,11 +50,75 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .navbar {
   background-color: var(--base-dark);
@@ -35,6 +134,38 @@ body {
   z-index: 100;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .logo {
   font-size: 1.25rem;
   font-weight: 600;
@@ -43,9 +174,73 @@ body {
   gap: 8px;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .logo-symbol {
   color: var(--base-light);
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .container {
   max-width: 900px;
@@ -54,6 +249,38 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .hero {
   padding-top: 120px;
@@ -65,11 +292,75 @@ body {
   gap: 24px;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .subtitle {
   color: var(--base-light);
   font-weight: 500;
   font-size: 1.1rem;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .title {
   font-size: 3.5rem;
@@ -78,6 +369,38 @@ body {
   margin: 0;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .description {
   font-size: 1.1rem;
   line-height: 1.5;
@@ -85,6 +408,38 @@ body {
   max-width: 600px;
   margin-bottom: 16px;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .btn {
   background-color: var(--base-light);
@@ -98,11 +453,107 @@ body {
   transition: background-color 0.2s ease;
 }
 
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+
 .btn:hover {
   background-color: #7691ff;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
 
 .btn-large {
   padding: 12px 24px;
   font-size: 1.1rem;
 }
+
+/* Output area: modern, accessible, theme-aligned */
+.translationui-output-section:focus-within, .translationui-output-section:focus-visible {
+  outline: 2.5px solid #4A90E2;
+  outline-offset: 2px;
+}
+.translationui-copy-btn:focus, .translationui-copy-btn:focus-visible {
+  outline: 2.5px solid #F5A623;
+  outline-offset: 0px;
+}
+.translationui-copy-btn:disabled, .translationui-copy-btn[aria-disabled="true"] {
+  background: #e8e8ef !important;
+  color: #b7bac2 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+.translationui-copy-btn:active:not(:disabled) {
+  background: #46c2af !important;
+}
+@media (max-width: 600px) {
+  .translationui-output-section {
+    font-size: 1.01rem !important;
+    padding: 14px 9px 13px 9px !important;
+  }
+  .translationui-copy-btn {
+    top: 14px !important;
+    right: 7px !important;
+    font-size: 13.6px !important;
+    padding: 7px 10px !important;
+  }
+}
+
