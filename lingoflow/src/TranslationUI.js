@@ -5,7 +5,6 @@ import './App.css';
  * Hardcoded language list for MVP.
  */
 const LANGUAGES = [
-  { code: 'auto', label: 'Auto-detect' }, // Only available for source
   { code: 'en', label: 'English' },
   { code: 'es', label: 'Spanish' },
   { code: 'fr', label: 'French' },
@@ -13,13 +12,54 @@ const LANGUAGES = [
   { code: 'zh', label: 'Chinese' }
 ];
 
+// For accessible labeling of the Auto-Detect toggle.
+function AutoDetectToggle({ enabled, onChange, labelId, ariaDescribedBy }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={enabled}
+      aria-labelledby={labelId}
+      aria-describedby={ariaDescribedBy}
+      tabIndex={0}
+      className="translationui-autodetect-toggle"
+      style={{
+        marginLeft: 8,
+        minWidth: 44, minHeight: 36,
+        padding: '5px 13px',
+        border: 'none',
+        borderRadius: 8,
+        fontWeight: 500,
+        fontSize: '1rem',
+        background: enabled ? '#F5A623' : '#e5eaf2',
+        color: enabled ? '#282008' : '#6d7586',
+        boxShadow: enabled ? '0 1px 6px 0 #ffe5bc90' : 'none',
+        cursor: 'pointer',
+        outline: !enabled ? '2px solid #F5A62340' : 'none',
+        transition: 'background 0.17s, color 0.08s'
+      }}
+      onClick={() => onChange(!enabled)}
+      onKeyDown={e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          onChange(!enabled);
+        }
+      }}
+    >
+      {enabled ? 'Auto-detect ON' : 'Auto-detect'}
+    </button>
+  );
+}
+
 // PUBLIC_INTERFACE
 function TranslationUI() {
   /**
    * State definition
    */
   const [input, setInput] = useState('');
-  const [sourceLang, setSourceLang] = useState('auto');
+  // If autoDetect is true, sourceLang is always "auto"
+  const [autoDetect, setAutoDetect] = useState(true);
+  const [sourceLang, setSourceLang] = useState('en');
   const [targetLang, setTargetLang] = useState('en');
   const [isTranslating, setIsTranslating] = useState(false);
   const [output, setOutput] = useState('');
@@ -34,9 +74,14 @@ function TranslationUI() {
     setCopyStatus('');
     // Simulate async translation (stub, static output for demo)
     setTimeout(() => {
+      const realSourceLang = autoDetect ? 'auto' : sourceLang;
+      const sourceName = autoDetect
+        ? "Auto-detect"
+        : (LANGUAGES.find(l => l.code === sourceLang)?.label || "Lang");
+      const targetName = LANGUAGES.find(l => l.code === targetLang)?.label || "Lang";
       setOutput(
         input.trim()
-          ? `[${LANGUAGES.find(l => l.code === sourceLang)?.label || "Lang"}→${LANGUAGES.find(l => l.code === targetLang)?.label || "Lang"}]:\n${input}`
+          ? `[${sourceName}→${targetName}]:\n${input}`
           : ''
       );
       setIsTranslating(false);
@@ -122,58 +167,105 @@ function TranslationUI() {
           </div>
         </div>
         <div className="translationui-lang-row" style={{
-          display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18
+          display: 'flex', alignItems: 'flex-end', gap: 16, marginBottom: 18, flexWrap: 'wrap'
         }}>
+          {/* Source Language Select + Auto-Detect Toggle */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <label htmlFor={sourceId} className="translationui-label">From</label>
+            <div style={{display:'flex', alignItems:'center', gap:10}}>
+              <label htmlFor={sourceId} className="translationui-label" id="from-label" style={{marginBottom:2}}>
+                From
+              </label>
+              <AutoDetectToggle
+                enabled={autoDetect}
+                onChange={on => {
+                  setAutoDetect(on);
+                  // Reset sourceLang to English as a default when disabling Auto-detect (UX choice)
+                  if (!on && sourceLang === 'auto') setSourceLang('en');
+                }}
+                labelId="autodetect-toggle-label"
+                ariaDescribedBy="autodetect-desc"
+              />
+            </div>
             <select
               id={sourceId}
               className="translationui-select"
-              value={sourceLang}
-              onChange={e => setSourceLang(e.target.value)}
+              value={autoDetect ? 'auto' : sourceLang}
+              onChange={e => {
+                setSourceLang(e.target.value);
+                if (autoDetect) setAutoDetect(false);
+              }}
               aria-label="Source language"
+              aria-labelledby="from-label"
+              aria-describedby={autoDetect ? 'autodetect-desc' : undefined}
               style={{
                 width: '100%',
                 padding: '10px',
                 borderRadius: 8,
                 border: '1.5px solid #e5eaf2',
                 background: '#f6fbff',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                marginTop: 4,
+                opacity: autoDetect ? 0.7 : 1,
+                cursor: autoDetect ? 'not-allowed' : 'pointer'
               }}
+              disabled={autoDetect}
+              tabIndex={0}
             >
+              {/* Only allow selecting non-auto languages directly */}
               {LANGUAGES.map(lang =>
-                <option key={lang.code} value={lang.code}>{lang.label}</option>
+                <option
+                  key={lang.code}
+                  value={lang.code}
+                  style={lang.code === 'auto' ? {display:'none'} : {}}
+                >
+                  {lang.label}
+                </option>
               )}
             </select>
+            <span
+              id="autodetect-desc"
+              style={{
+                fontSize: 12,
+                color: '#b0b6be',
+                display: autoDetect ? 'block' : 'none',
+                marginLeft: 2
+              }}
+            >
+              Auto-detect enabled: source language will be detected automatically
+            </span>
           </div>
           <span
             style={{
               fontSize: 20, marginTop: 18, marginLeft: 6, marginRight: 6,
-              color: '#C8CAD0'
+              color: '#C8CAD0', alignSelf: 'center'
             }}
             role="img"
             aria-label="to"
           >
             →
           </span>
+          {/* Target Language Select */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <label htmlFor={targetId} className="translationui-label">To</label>
+            <label htmlFor={targetId} className="translationui-label" id="to-label" style={{marginBottom:2}}>To</label>
             <select
               id={targetId}
               className="translationui-select"
               value={targetLang}
               onChange={e => setTargetLang(e.target.value)}
               aria-label="Target language"
+              aria-labelledby="to-label"
               style={{
                 width: '100%',
                 padding: '10px',
                 borderRadius: 8,
                 border: '1.5px solid #e5eaf2',
                 background: '#f6fbff',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                marginTop: 4
               }}
+              tabIndex={0}
             >
-              {LANGUAGES.filter(lang => lang.code !== 'auto').map(lang =>
+              {LANGUAGES.map(lang =>
                 <option key={lang.code} value={lang.code}>{lang.label}</option>
               )}
             </select>
@@ -276,3 +368,38 @@ function TranslationUI() {
 }
 
 export default TranslationUI;
+
+/** Minimal theme/style for accessibility and modern look, for custom elements only.
+ * Should be moved to CSS file if refactoring styles.
+ */
+const styleSheet = `
+.translationui-autodetect-toggle:focus {
+  outline: 2px solid #F5A623;
+  outline-offset: 2px;
+}
+.translationui-select:focus {
+  outline: 2px solid #4A90E2;
+  outline-offset: 1px;
+}
+.translationui-label {
+  font-weight: 500;
+  font-size: 14.2px;
+  color: #294366;
+  margin-bottom: 4px;
+  display: block;
+}
+@media (max-width: 600px) {
+  .translationui-lang-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+}
+`;
+
+// Inject on module load (plain approach for MVP, could be refined into App.css)
+if (typeof document !== "undefined" && !document.getElementById('translationui-lang-style')) {
+  const s = document.createElement('style');
+  s.id = 'translationui-lang-style';
+  s.innerHTML = styleSheet;
+  document.head.appendChild(s);
+}
